@@ -10,6 +10,7 @@ const gameOptions = {
 
 const gameConfig = {
     type: Phaser.AUTO,
+    parent: "phaser-container",
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -115,7 +116,6 @@ function create() {
         repeate: -1
     })
 
-
     // Object generation
     this.triggerTime = this.time.addEvent({
         callback: addGround,
@@ -167,15 +167,13 @@ function addClouds() {
     }
 }
 
-
 function addSpiders() {
     if (Phaser.Math.Between(0, 1)) {
-        this.spidersGroup.create(game.config.width, Phaser.Math.Between(0, game.config.height), "spider")
+        this.spidersGroup.create(game.config.width+50, Phaser.Math.Between(0, game.config.height), "spider")
         this.spidersGroup.setVelocityX(-gameOptions.dudeSpeed/4);
         this.spidersGroup.setVelocityY(gameOptions.dudeSpeed/8);
     }
 }
-
 
 function addYellowStars() {
     if (Phaser.Math.Between(0, 1)) {
@@ -202,7 +200,6 @@ function collectRedStar (dude, star) {
     this.score = this.score + 3;
     this.scoreText.setText(this.score);
 }
-
 
 function update() {
     // Basic Movement
