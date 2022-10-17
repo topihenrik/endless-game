@@ -52,13 +52,13 @@ function create() {
     this.add.image(16, 16, "star-yellow");
     this.scoreText = this.add.text(32, 3, "0", {fontSize: "30px", fill: "#ffffff"})
 
-    // Ground
+    // Starting Ground
     this.groundGroup = this.physics.add.group({
         immovable: true,
         allowGravity: false
     })
-    this.groundGroup.create(400, 350, "ground");
-    this.groundGroup.create(700, 400, "ground");
+    this.groundGroup.create(450, 350, "ground");
+    this.groundGroup.create(800, 400, "ground");
     this.groundGroup.setVelocityX(-gameOptions.dudeSpeed/4);
 
     // Dude
@@ -87,13 +87,19 @@ function create() {
     this.starsYellowGroup = this.physics.add.group({});
     this.physics.add.collider(this.starsYellowGroup, this.groundGroup);
     this.physics.add.overlap(this.dude, this.starsYellowGroup, collectYellowStar, null, this);
+    this.physics.add.overlap(this.groundGroup, this.starsYellowGroup, (ground, star) => {
+        star.disableBody(true, true)
+    }, null);
 
     // Red Stars
     this.starsRedGroup = this.physics.add.group({});
     this.physics.add.collider(this.starsRedGroup, this.groundGroup);
     this.physics.add.overlap(this.dude, this.starsRedGroup, collectRedStar, null, this);
+    this.physics.add.overlap(this.groundGroup, this.starsRedGroup, (ground, star) => {
+        star.disableBody(true, true)
+    }, null);
 
-    // Input and Anims
+    // Input and Animations
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.anims.create({
@@ -155,14 +161,14 @@ function create() {
 
 function addGround() {
     if (Phaser.Math.Between(0, 10) <= 7) {
-        this.groundGroup.create(game.config.width+200, Phaser.Math.Between(game.config.height/2, game.config.height), "ground");
+        this.groundGroup.create(game.config.width+150, Phaser.Math.Between(game.config.height/2+40, game.config.height), "ground");
         this.groundGroup.setVelocityX(-gameOptions.dudeSpeed/4);
     } 
 }
 
 function addClouds() {
     if (Phaser.Math.Between(0, 10) <= 7) {
-        this.groundGroup.create(game.config.width+200, Phaser.Math.Between(0, game.config.height/2), "cloud");
+        this.groundGroup.create(game.config.width+150, Phaser.Math.Between(40, game.config.height/2-40), "cloud");
         this.groundGroup.setVelocityX(-gameOptions.dudeSpeed/4);
     }
 }
