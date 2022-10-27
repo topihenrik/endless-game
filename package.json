@@ -1,11 +1,10 @@
 {
-  "name": "week7",
+  "name": "endless-game",
   "version": "1.0.0",
-  "description": "Week 7 assignments",
-  "main": "index.html",
+  "description": "Simple platform game. Collect stars and avoid spiders.",
   "scripts": {
     "start": "parcel src/index.html --open",
-    "build": "parcel src/build index.html"
+    "build": "parcel build src/index.html --public-url ./"
   },
   "dependencies": {
     "assets": "^3.0.1",
